@@ -34,8 +34,20 @@ Builds the app for production to the `build` folder.
 
 Due to the same CORS issue mentioned above I've decided to proxy requests in production builds through https://cors-anywhere.herokuapp.com/.
 
-## Assumptions:
+## Details
+
+Polling the list of machines happens every 10 seconds using redux-saga. I don't remember if we've discussed it in our call or not. I used it because it was the most often returned thing when I googled "how to poll with redux". I've taken the opportunity to experiment with it here as I've never used it before; as such, code organization might not be optimal (some people choose to have their sagas separate, I kept my polls next to my actions).
+
+Every state update is saved to localStorage so you get the data first thing next time. The timestamp at which the last successful call was made is also saved, and displayed at the top of the page ("Accurate as of ... "). To the right of that is the current "server status", which shows red when the request fails for whatever reason and green if we're getting fresh data successfully. Last successful data are still displayed when "red".
+
+There are a set of filters above the machines list allowing you to search by name, sort by active/idle time and filter by group/site. I've decided to save time and implement these from scratch. If making a production-ready reusable grid where you might want filters for all fields of your data model, I would either use a lib or write a generic reusable component which iterates over their keys (`FilterList<Machine>` for instance, and try to adapt to value types, i.e. handle `activity` differently because it's an object etc.).
+
+## Assumptions
 
 1. The "activeHours" and "idleHours" values found on the data model returned by `/machines` add up to less than 24, so I'm assuming the rest is "off" hours and the entire measurement happens for the previous 24h. This assumption is reinforced by the fact that `/machines/{machine_id}/history` is also returned for a 24 hour period. Thus, I've decided to show "off" time on the tiles as well.
 
-2. Chrome has a weird bug now where options of a select element don't show borders properly. Assuming it's ok not to spend time styling it or using a dropdown lib.
+2. Chrome has a weird bug now where options list of a select element doesn't show borders properly. Assuming it's ok not to spend time styling it or using a dropdown lib.
+
+3. It's ok to call the utils folder utils. Come on, they're utils.
+
+4. Default alphabetical sort by name is ok (endpoint keeps mangling them).

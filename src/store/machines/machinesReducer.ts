@@ -13,6 +13,7 @@ const reducer: Reducer<IMachinesState, MachinesActionTypes> = (
 ) => {
   switch (action.type) {
     case GET_MACHINES_REQUEST:
+      return state;
     case GET_MACHINES_FAIL:
       return {
         ...state,

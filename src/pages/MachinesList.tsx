@@ -3,8 +3,6 @@ import './MachinesList.scss';
 import { useSelector, useDispatch } from 'react-redux';
 import { getMachines } from '../store/machines/machinesActions';
 import { Machine, MachinesEndpointStatus, MachineActivityKeys, ACTIVE_HOURS, IDLE_HOURS } from '../services/MachineService';
-import { ThunkDispatch } from 'redux-thunk';
-import { AnyAction } from 'redux';
 import moment from 'moment';
 // import { IMachinesState } from '../store/machines/machinesTypes';
 import { MachineTile } from '../components/MachineTile';
@@ -18,10 +16,14 @@ const timeSortFn = (timeSort: MachineActivityKeys | '') => (m1: Machine, m2: Mac
     : 1;
 
 export const MachinesList: React.FC = () => {
-  const machines: Machine[] = useSelector((state: IApplicationState) => state.machines.machines);
+  const machines: Machine[] = useSelector((state: IApplicationState) => state.machines.machines).sort((m1, m2) => {
+    if (m1.name > m2.name) return 1;
+    if (m1.name < m2.name) return -1;
+    return 0;
+  });
   const machinesLoadedLast: Date | undefined = useSelector((state: IApplicationState) => state.machines.machinesLoadedLast);
   const machinesEndpointStatus: MachinesEndpointStatus = useSelector((state: IApplicationState) => state.machines.machinesEndpointStatus);
-  const dispatch = useDispatch<ThunkDispatch<{}, {}, AnyAction>>();
+  const dispatch = useDispatch();
 
   const [nameFilter, setNameFilter] = useState('');
   const [timeSort, setTimeSort] = useState<MachineActivityKeys | ''>('');
@@ -58,8 +60,8 @@ export const MachinesList: React.FC = () => {
       </select>
     </div>
     <div className="col-lg-4">
-      <label htmlFor="#site-sort">Filter by site:</label>
-      <select id="site-sort" value={groupFilter} onChange={(e) => setGroupFilter(e.currentTarget.value)}>
+      <label htmlFor="#site-filter">Filter by site:</label>
+      <select id="site-filter" value={groupFilter} onChange={(e) => setGroupFilter(e.currentTarget.value)}>
         <option value=""/>
         {availableSites.map(site => <option key={site} value={site}>{site}</option>)}
       </select>
@@ -82,7 +84,7 @@ export const MachinesList: React.FC = () => {
         <h2 className="col-lg-12">Status for all your machines</h2>
         <div className="col-lg-12 inner-grid-12 column-gap bottom-spacing machines-list__status">
           {machinesLoadedLast
-          ? <div className="col-lg-8">Accurate as of {moment(machinesLoadedLast).format('dd/MMM HH:mm')}</div>
+          ? <div className="col-lg-8">Accurate as of {moment(machinesLoadedLast).format('DD/MMM HH:mm:ss')}</div>
           : null}
           <div className="col-lg-3 col-sm-8">
             Server status:

@@ -4,11 +4,21 @@ import { Machine, MachinesEndpointStatus } from "../../services/MachineService";
 export const GET_MACHINES_REQUEST = 'GET_MACHINES_REQUEST';
 export const GET_MACHINES_SUCCESS = 'GET_MACHINES_SUCCESS';
 export const GET_MACHINES_FAIL = 'GET_MACHINES_FAIL';
+export const POLL_MACHINES_START = 'POLL_MACHINES_START';
+export const POLL_MACHINES_STOP = 'POLL_MACHINES_STOP';
 
 export interface IMachinesState {
   machines: Machine[];
   machinesLoadedLast?: Date;
   machinesEndpointStatus: MachinesEndpointStatus;
+}
+
+interface IPollMachinesStart extends Action {
+  type: typeof POLL_MACHINES_START;
+}
+
+interface IPollMachinesStop extends Action {
+  type: typeof POLL_MACHINES_STOP;
 }
 
 interface IGetMachinesRequestAction extends Action {
@@ -26,6 +36,8 @@ interface IGetMachinesFailAction extends Action {
 }
 
 export type MachinesActionTypes =
-  IGetMachinesRequestAction
+  IPollMachinesStart
+  | IPollMachinesStop
+  | IGetMachinesRequestAction
   | IGetMachinesSuccessAction
   | IGetMachinesFailAction;
