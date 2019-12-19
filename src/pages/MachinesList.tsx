@@ -61,7 +61,7 @@ export const MachinesList: React.FC = () => {
       <label htmlFor="#site-sort">Filter by site:</label>
       <select id="site-sort" value={groupFilter} onChange={(e) => setGroupFilter(e.currentTarget.value)}>
         <option value=""/>
-        {availableSites.map(site => <option value={site}>{site}</option>)}
+        {availableSites.map(site => <option key={site} value={site}>{site}</option>)}
       </select>
     </div>
     <div className="col-lg-12">
