@@ -1,8 +1,7 @@
 .machine-tile {
-  &__body {
-    padding: 10px 20px;
-    background-color: #fff;
-  }
+  padding: 10px 20px;
+  background-color: #fff;
+  border-radius: 10px;
 
   &__name {
     display: flex;

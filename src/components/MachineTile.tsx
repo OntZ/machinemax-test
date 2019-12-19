@@ -44,31 +44,29 @@ export const MachineTile: React.FC<IMachineTileProps> = ({machine}) => {
 
   return (
     <div className="machine-tile">
-      <div className="machine-tile__body">
-        <div className="machine-tile__name">
-          <div><b>{machine.type + ' ' + machine.name}</b></div>
-          <div>{machine.group}</div>
+      <div className="machine-tile__name">
+        <div><b>{machine.type + ' ' + machine.name}</b></div>
+        <div>{machine.group}</div>
+      </div>
+      <div className="machine-tile__info">
+        <img src={machine.thumbURL} alt="" />
+        <div className="machine-tile__status-chart">
+          <VictoryPie
+            colorScale={colorScale}
+            height={170}
+            width={220}
+            startAngle={-90}
+            endAngle={90}
+            data={chartData}
+            labelRadius={70}
+            radius={50}
+            containerComponent={<VictoryContainer responsive={true}/>}
+          />
         </div>
-        <div className="machine-tile__info">
-          <img src={machine.thumbURL} alt="" />
-          <div className="machine-tile__status-chart">
-            <VictoryPie
-              colorScale={colorScale}
-              height={170}
-              width={220}
-              startAngle={-90}
-              endAngle={90}
-              data={chartData}
-              labelRadius={70}
-              radius={50}
-              containerComponent={<VictoryContainer responsive={true}/>}
-            />
-          </div>
-        </div>
-        <div className="machine-tile__name">
-          <div>sensor: {machine.sensorID}</div>
-          <div><b>total: {engineTime.toFixed(1)} hrs</b></div>
-        </div>
+      </div>
+      <div className="machine-tile__name">
+        <div>sensor: {machine.sensorID}</div>
+        <div><b>total: {engineTime.toFixed(1)} hrs</b></div>
       </div>
     </div>
   );
