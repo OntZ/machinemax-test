@@ -9,13 +9,11 @@ app.use((req, res, next) => {
 });
 
 app.get('/api/machines', (req, res) => {
-  console.log('reqsadf')
   request(
     { url: 'https://dummy-hacxuuktha-ew.a.run.app/machines' },
     (error, response, body) => {
       if (error || response.statusCode !== 200) {
-        // return res.status(response.statusCode).json({ type: 'error', message: err.message });
-        return console.log(error);
+        return res.status(response ? response.statusCode : 500).json({ type: 'error', message: error ? error.message : 'Internal Server Error' });
       }
 
       res.json(JSON.parse(body));

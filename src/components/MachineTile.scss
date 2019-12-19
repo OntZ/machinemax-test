@@ -1,0 +1,25 @@
+.machine-tile {
+  padding: 10px;
+
+  &__body {
+    padding: 10px 20px;
+    background-color: #fff;
+  }
+
+  &__name {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &__status-chart {
+    width: 200px;
+    height: 120px;
+    padding-top: 20px;
+  }
+}
