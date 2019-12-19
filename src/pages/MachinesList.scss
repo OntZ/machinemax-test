@@ -4,10 +4,8 @@
 
   min-height: 100vh;
   background-color: #eee;
-
-  &__status {
-    margin-bottom: 30px;
-  }
+  margin: 0;
+  padding-bottom: 30px;
 
   &__filters {
     label {
