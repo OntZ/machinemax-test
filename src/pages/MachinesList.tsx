@@ -9,8 +9,8 @@ import { MachineTile } from '../components/MachineTile';
 import { IApplicationState } from '../store/rootReducer';
 import { ServerStatus } from '../components/ServerStatus';
 
-const namefilterFn = (nameFilter: string) => (machine: Machine) => machine.name.toLocaleLowerCase().indexOf(nameFilter.toLocaleLowerCase()) > -1
-const timeSortFn = (timeSort: MachineActivityKeys | '') => (m1: Machine, m2: Machine) =>
+export const namefilterFn = (nameFilter: string) => (machine: Machine) => machine.name.toLocaleLowerCase().indexOf(nameFilter.toLocaleLowerCase()) > -1
+export const timeSortFn = (timeSort: MachineActivityKeys | '') => (m1: Machine, m2: Machine) =>
   timeSort
     ? m2.activity[timeSort] - m1.activity[timeSort]
     : 1;
