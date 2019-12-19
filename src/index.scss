@@ -51,6 +51,14 @@ $grid-columns: 12;
   padding: 0 30px;
 }
 
+.column-gap {
+  grid-column-gap: 30px;
+}
+
+.row-gap {
+  grid-row-gap: 30px;
+}
+
 // Grid layout for inner grids with varying numbers of columns
 @for $i from 1 through $grid-columns {
   // .inner-grid-1, .inner-grid-2 ....

@@ -1,3 +1,42 @@
+@import '../app-mixins-and-vars.scss';
+
 .machines-list {
 
+  min-height: 100vh;
+  background-color: #eee;
+
+  &__status {
+    margin-bottom: 30px;
+  }
+
+  &__filters {
+    label {
+      margin-bottom: 7px;
+    }
+    input, select {
+      margin-top: 7px;
+      height: 40px;
+      width: 100%;
+      padding: 6px;
+      font-size: $min-font-size;
+    }
+
+    option {
+      background-color: #f8f8f8;
+    }
+  }
+
+  &__reset-filters {
+    display: inline-block;
+    margin-top: 10px;
+    color: #333;
+    text-decoration: none;
+    &:hover {
+      color: #555;
+      text-decoration: underline;
+    }
+    &:visited {
+      color: #333;
+    }
+  }
 }

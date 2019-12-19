@@ -1,8 +1,12 @@
 import { Http } from "./Http"
 
+export const ACTIVE_HOURS = 'activeHours';
+export const IDLE_HOURS = 'idleHours';
+
+export type MachineActivityKeys = typeof ACTIVE_HOURS | typeof IDLE_HOURS;
+
 export type MachineActivity = {
-  activeHours: number;
-  idleHours: number;
+  [k in MachineActivityKeys]: number;
 }
 
 export type Machine = {
@@ -14,6 +18,11 @@ export type Machine = {
   sensorID: string;
   thumbURL: string;
   type: string;
+}
+
+export enum MachinesEndpointStatus {
+  Active = 'active',
+  Problem = 'problem',
 }
 
 export class MachineService {

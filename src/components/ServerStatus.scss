@@ -1,0 +1,19 @@
+$box-shadow-dimensions: 0 0 10px;
+$color-active: #0f0;
+$color-problem: #f00;
+
+.server-status {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+
+  &--active {
+    background-color: $color-active;
+    box-shadow: $box-shadow-dimensions $color-active;
+  }
+
+  &--problem {
+    background-color: $color-problem;
+    box-shadow: $box-shadow-dimensions $color-problem;
+  }
+}

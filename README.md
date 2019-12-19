@@ -1,7 +1,8 @@
 # Machinemax test - display machine data
 
+## See it running at https://ontz.github.io/
 
-## Available Scripts
+## Local builds
 
 In the project directory, you can run:
 
@@ -31,8 +32,10 @@ Launches the test runner in watch mode.
 
 Builds the app for production to the `build` folder.
 
-I can't say anything with regards to deploying it, as proxies don't work in production and the only way you could deploy it would be to run "locally" on a container using a publicly exposed ip and proxy, as CORS still wouldn't work with the provided endpoint.
+Due to the same CORS issue mentioned above I've decided to proxy requests in production builds through https://cors-anywhere.herokuapp.com/.
 
 ## Assumptions:
 
 1. The "activeHours" and "idleHours" values found on the data model returned by `/machines` add up to less than 24, so I'm assuming the rest is "off" hours and the entire measurement happens for the previous 24h. This assumption is reinforced by the fact that `/machines/{machine_id}/history` is also returned for a 24 hour period. Thus, I've decided to show "off" time on the tiles as well.
+
+2. Chrome has a weird bug now where options of a select element don't show borders properly. Assuming it's ok not to spend time styling it or using a dropdown lib.
