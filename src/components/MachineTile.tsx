@@ -45,11 +45,17 @@ export const MachineTile: React.FC<IMachineTileProps> = ({machine}) => {
   return (
     <div className="machine-tile">
       <div className="machine-tile__name">
-        <div><b>{machine.type + ' ' + machine.name}</b></div>
+        <div>
+          <a href={`/${machine.id}`}>
+            <b>{machine.type + ' ' + machine.name}</b>
+          </a>
+        </div>
         <div>{machine.group}</div>
       </div>
       <div className="machine-tile__info">
-        <img src={machine.thumbURL} alt="" />
+        <a href={`/${machine.id}`}>
+          <img src={machine.thumbURL} alt="" />
+        </a>
         <div className="machine-tile__status-chart">
           <VictoryPie
             colorScale={colorScale}

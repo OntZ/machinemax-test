@@ -28,7 +28,7 @@ function* pollMachinesSaga() {
       yield put(getMachinesRequest());
       const machines = yield call(() => MachineService.getAll());
       yield put(getMachinesSuccess(machines));
-      yield call(delay, 10000);
+      yield call(delay, 30000);
     } catch (err) {
       yield put(getMachinesFail(err));
     }

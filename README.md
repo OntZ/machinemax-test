@@ -36,11 +36,17 @@ Due to the same CORS issue mentioned above I've decided to proxy requests in pro
 
 ## Details
 
-Polling the list of machines happens every 10 seconds using redux-saga. I don't remember if we've discussed it in our call or not. I used it because it was the most often returned thing when I googled "how to poll with redux". I've taken the opportunity to experiment with it here as I've never used it before; as such, code organization might not be optimal (some people choose to have their sagas separate, I kept my polls next to my actions).
+The homepage shows a list of machines displaying on/idle/off times in a half-pie chart, together with group, sensor id and total engine running time.
 
-Every state update is saved to localStorage so you get the data first thing next time. The timestamp at which the last successful call was made is also saved, and displayed at the top of the page ("Accurate as of ... "). To the right of that is the current "server status", which shows red when the request fails for whatever reason and green if we're getting fresh data successfully. Last successful data are still displayed when "red".
+Polling the list of machines happens every 30 seconds using redux-saga. I don't remember if we've discussed it in our call or not. I used it because it was the most often returned thing when I googled "how to poll with redux". I've taken the opportunity to experiment with it here as I've never used it before; as such, code organization might not be optimal (some people choose to have their sagas separate, I kept my polls next to my actions).
+
+The first time you load the app you'll need to wait for the first successful result. A spinner might need to be added in an improved version. Every state update is saved to localStorage so you get the most recently loaded data first thing next time. The timestamp at which the last successful call was made is also saved, and displayed at the top of the page ("Accurate as of ... "). To the right of that is the current "server status", which shows red when the request fails for whatever reason and green if we're getting fresh data successfully. Last successful data are still displayed when "red".
 
 There are a set of filters above the machines list allowing you to search by name, sort by active/idle time and filter by group/site. I've decided to save time and implement these from scratch. If making a production-ready reusable grid where you might want filters for all fields of your data model, I would either use a lib or write a generic reusable component which iterates over their keys (`FilterList<Machine>` for instance, and try to adapt to value types, i.e. handle `activity` differently because it's an object etc.).
+
+Because filtering happens at render time, newly loaded up-to-date results are shown with the same filters applied.
+
+You can click a machine's name or image to go to its details page.
 
 ## Assumptions
 
@@ -52,6 +58,10 @@ There are a set of filters above the machines list allowing you to search by nam
 
 4. Default alphabetical sort by name is ok (endpoint keeps mangling them).
 
+5. `< Home` link on details page is enough (didn't implement a reusable header).
+
 ## Potential caveats
 
 1. There aren't a lot of unit tests - ultimately it depends on your testing culture. I'm able and happy to adapt to whatever works for you. I'm also happy to discuss if you're open for it. Personally I believe things like "test reducer(action) results in expectedState" risk duplicating code and adding maintenance overhead as time goes on. Ultimately the end user doesn't care about whether the reducer updates the new state, they only care about their action going through and their data coming back. As such I would personally leave most testing to automated end-to-end suites running on live environments (mocking APIs also gets harder to maintain). I also don't personally test rendering snapshots, as again they need constant maintenance. I do test pure data processing functions though as they take no time at all to test, require little maintenance and provide enough value in terms of heavy lifting. As for automated tests, I don't at the moment know how to set up such a suite and have decided not to do so in the scope of this task. If you require devs maintaining them, I am again happy to learn how to do that and pitch in.
+
+2. Pages and components don't have individual folders. In more complex apps that starts to be worth doing at some point. Maybe a Layout component would also be worth writing.
