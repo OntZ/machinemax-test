@@ -35,4 +35,7 @@ describe('MachinesList', () => {
   it('sorts machines by active time', () => {
     expect(machines.sort(timeSortFn('activeHours'))).toEqual([M1, M2]);
   })
+  it('returns the array in the same order when time key is empty', () => {
+    expect(machines.sort(timeSortFn(''))).toEqual(machines);
+  })
 })

@@ -1,6 +1,8 @@
+@import '../app-mixins-and-vars.scss';
+
 .machine-tile {
   padding: 10px 20px;
-  background-color: #fff;
+  background-color: $color-white;
   border-radius: 10px;
 
   &__name {

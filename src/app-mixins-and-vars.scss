@@ -2,6 +2,9 @@ $min-font-size: 18px;
 
 $global-width: 1200px;
 
+$color-app-background: #eee;
+$color-white: #fff;
+
 @mixin breakpoint($point) {
   @if $point == large {
     @media (min-width: 1201px) { @content ; }

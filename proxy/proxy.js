@@ -8,9 +8,9 @@ app.use((req, res, next) => {
   next();
 });
 
-app.get('/api/machines', (req, res) => {
+app.get('/*', (req, res) => {
   request(
-    { url: 'https://dummy-hacxuuktha-ew.a.run.app/machines' },
+    { url: 'https://dummy-hacxuuktha-ew.a.run.app' + req.url.replace('/api', '') },
     (error, response, body) => {
       if (error || response.statusCode !== 200) {
         return res.status(response ? response.statusCode : 500).json({ type: 'error', message: error ? error.message : 'Internal Server Error' });

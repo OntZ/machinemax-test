@@ -1,3 +1,21 @@
-.machine-details {
+@import '../app-mixins-and-vars.scss';
 
+
+.machine-details {
+  background-color: $color-app-background;
+  min-height: 100vh;
+  margin: 0;
+
+  &__content {
+    background-color: $color-white;
+    min-height: 100vh;
+  }
+
+  &__title {
+    margin-top: 0;
+  }
+
+  &__photo {
+    width: 100%;
+  }
 }

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './MachinesList.scss';
 import { useSelector, useDispatch } from 'react-redux';
-import { getMachines } from '../store/machines/machinesActions';
+import { getMachines, stopPollingMachines } from '../store/machines/machinesActions';
 import { Machine, MachinesEndpointStatus, MachineActivityKeys, ACTIVE_HOURS, IDLE_HOURS } from '../services/MachineService';
 import moment from 'moment';
 // import { IMachinesState } from '../store/machines/machinesTypes';
@@ -31,6 +31,9 @@ export const MachinesList: React.FC = () => {
 
   useEffect(() => {
     dispatch(getMachines());
+    return () => {
+      dispatch(stopPollingMachines())
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

@@ -20,15 +20,27 @@ export type Machine = {
   type: string;
 }
 
+export enum MachineStates {
+  Active = 'ACTIVE',
+  Idle = 'IDLE',
+  Off = 'OFF'
+}
+
+export type MachineHistory = {
+  start: string;
+  end: string;
+  state: MachineStates;
+}
+
 export enum MachinesEndpointStatus {
   Active = 'active',
   Problem = 'problem',
 }
 
 export class MachineService {
-  public static getAll = async () => {
-    const res = await Http.fetch('/machines');
+  public static getAll = async (): Promise<Machine[]> => (await Http.fetch('/machines')).machines;
 
-    return res.machines;
-  }
+  public static getById = async (id: string): Promise<Machine> => await Http.fetch('/machines/' + id);
+
+  public static getHistory = async (id: string): Promise<MachineHistory[]> => (await Http.fetch('/machines/' + id + '/history')).history;
 }
