@@ -5,6 +5,35 @@ import { MachineHistory, MachineStates } from '../services/MachineService';
 
 const appColors = require('../app-colors.scss');
 
+export const mapHistoryItemToChartItem = (item: MachineHistory) => {
+
+  const x = new Date(item.start).getTime();
+
+  let y = 0;
+  let fill = '';
+  switch (item.state) {
+    case MachineStates.Active:
+      y = 2;
+      fill = appColors.operationOn;
+      break;
+    case MachineStates.Idle:
+      y = -1;
+      fill = appColors.operationIdle;
+      break;
+    case MachineStates.Off:
+      y = -0.5;
+      fill = appColors.operationOff;
+  }
+
+  return {
+    x,
+    y,
+    fill,
+    label: moment(x).format('HH:mm'),
+    width: new Date(item.end).getTime() - x
+  }
+}
+
 export interface IMachineHistoryChartProps {
   machineHistory: MachineHistory[];
 }
@@ -14,34 +43,7 @@ export const MachineHistoryChart: React.FC<IMachineHistoryChartProps> = ({machin
     return null;
   }
 
-  const historyData = machineHistory.map(item => {
-
-    const x = new Date(item.start).getTime();
-
-    let y = 0;
-    let fill = '';
-    switch (item.state) {
-      case MachineStates.Active:
-        y = 2;
-        fill = appColors.operationOn;
-        break;
-      case MachineStates.Idle:
-        y = -1;
-        fill = appColors.operationIdle;
-        break;
-      case MachineStates.Off:
-        y = -0.5;
-        fill = appColors.operationOff;
-    }
-
-    return {
-      x,
-      y,
-      fill,
-      label: moment(x).format('HH:mm'),
-      width: new Date(item.end).getTime() - x
-    }
-  })
+  const historyData = machineHistory.map(mapHistoryItemToChartItem)
 
   return (
     <div className="inner-grid-12">
