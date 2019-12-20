@@ -4,6 +4,8 @@ import './MachineTile.scss';
 import { Machine } from '../services/MachineService';
 import { VictoryPie, VictoryContainer } from 'victory';
 
+const appColors = require('../app-colors.scss');
+
 export interface IMachineTileProps {
   machine: Machine;
 }
@@ -23,7 +25,7 @@ export const MachineTile: React.FC<IMachineTileProps> = ({machine}) => {
       x: 'On: ' + onTime.toFixed(1),
       y: onTime
     });
-    colorScale.push('green');
+    colorScale.push(appColors.operationOn);
   }
 
   if (idleTime > 0) {
@@ -31,7 +33,7 @@ export const MachineTile: React.FC<IMachineTileProps> = ({machine}) => {
       x: 'Idle ' + idleTime.toFixed(1),
       y: idleTime
     });
-    colorScale.push('yellow')
+    colorScale.push(appColors.operationIdle)
   }
 
   if (offTime > 0) {
@@ -39,7 +41,7 @@ export const MachineTile: React.FC<IMachineTileProps> = ({machine}) => {
       x: 'Off ' + offTime.toFixed(1),
       y: offTime
     });
-    colorScale.push('grey');
+    colorScale.push(appColors.operationOff);
   }
 
   return (

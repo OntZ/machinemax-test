@@ -117,3 +117,9 @@ $grid-columns: 12;
     }
   };
 }
+
+.hidden-sm {
+  @include breakpoint(small) {
+    display: none !important;
+  }
+}

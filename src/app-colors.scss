@@ -1,0 +1,11 @@
+$color-app-background: #eee;
+$color-white: #fff;
+$color-operation-on: #00b159;
+$color-operation-idle: #e5e500;
+$color-operation-off: #666666;
+
+:export {
+  operationOn: $color-operation-on;
+  operationIdle: $color-operation-idle;
+  operationOff: $color-operation-off;
+}

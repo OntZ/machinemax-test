@@ -46,7 +46,11 @@ There are a set of filters above the machines list allowing you to search by nam
 
 Because filtering happens at render time, newly loaded up-to-date results are shown with the same filters applied.
 
-You can click a machine's name or image to go to its details page.
+You can click a machine's name or image to go to its details page. There you will find its large photo, again a mention of active,idle and off time and a bar chart representing the operation history for the previous day. The machine details are polled for every 30s just as in the list page, but the history is only gotten once, at mount time (but polled for if it fails, until the first successful load).
+
+Individual machines are stored in redux state and local-storage on a per-ID basis. If one hasn't been added to local-storage in the past, there will still be an initial loading time till you get to it. One can get around this by `array.find`-ing the individual machine in the already loaded list, which is how I've chosen to handle this. This is fast, but runs the risk of being not very transparent as regards maintainability in the future (data model for single machine might be more detailed than for machines list, e.g. preview vs full view, and this optimization is hidden in the middle of the reducer). If you just load the details page directly for the first time though, without having local storage or an initially loaded list, you'll naturally have to wait for the response.
+
+I've used Victory for showing data charts as it seemed easiest to get something out of the box with it. However considerably more time should probably be spent tweaking them to get them looking sharp.
 
 ## Assumptions
 
@@ -60,6 +64,10 @@ You can click a machine's name or image to go to its details page.
 
 5. `< Home` link on details page is enough (didn't implement a reusable header).
 
+6. Idle is more costly than off because you're wasting fuel, engine wear and operator hours, so I've plotted it as such in the history chart.
+
+7. History doesn't change randomly. Because in this case it does, there will be a less-than-pretty initial flicker in the details page when the new history replaces the old one. There would still be a flicker from one day to the next, though. The dates the graph is showed for are rendered, and will update with the fresh call, so this might be acceptable in an MVP, subject to PO, user testing etc. I'd be happy to hear how best to go about this. Potentially a graph which uses transitions would be nice.
+
 ## Potential caveats
 
 1. There aren't a lot of unit tests - ultimately it depends on your testing culture. I'm able and happy to adapt to whatever works for you. I'm also happy to discuss if you're open for it. Personally I believe things like "test reducer(action) results in expectedState" risk duplicating code and adding maintenance overhead as time goes on. Ultimately the end user doesn't care about whether the reducer updates the new state, they only care about their action going through and their data coming back. As such I would personally leave most testing to automated end-to-end suites running on live environments (mocking APIs also gets harder to maintain). I also don't personally test rendering snapshots, as again they need constant maintenance. I do test pure data processing functions though as they take no time at all to test, require little maintenance and provide enough value in terms of heavy lifting. As for automated tests, I don't at the moment know how to set up such a suite and have decided not to do so in the scope of this task. If you require devs maintaining them, I am again happy to learn how to do that and pitch in.
@@ -69,3 +77,7 @@ You can click a machine's name or image to go to its details page.
 3. If I were writing a production app I might think more about whether to separate concerns between layout divs (col-...) and child divs for component classes.
 
 4. If the machine actions and reducer start getting longer, it might be worth splitting them by actions/reducers for all machines and individual machines respectively.
+
+5. Machine details Bar chart could look better and I haven't figured out how to make bar width fill up between the points without hacking away at them.
+
+6. Didn't add animations as not relevant to actual user value and to save time. Would be fun to add some though.

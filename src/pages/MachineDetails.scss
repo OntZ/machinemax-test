@@ -15,6 +15,32 @@
     margin-top: 0;
   }
 
+  &__operation {
+    padding: 6px;
+    border-radius: 6px;
+    width: 200px;
+    text-align: center;
+    margin: 10px;
+    color: $color-white;
+
+    @include breakpoint(small) {
+      margin: 10px auto;
+    }
+
+    &--active {
+      background-color: $color-operation-on;
+    }
+
+    &--idle {
+      background-color: $color-operation-idle;
+      color: #333;
+    }
+
+    &--off {
+      background-color: $color-operation-off;
+    }
+  }
+
   &__photo {
     width: 100%;
   }
