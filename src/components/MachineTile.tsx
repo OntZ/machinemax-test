@@ -53,7 +53,7 @@ export const MachineTile: React.FC<IMachineTileProps> = ({machine}) => {
         <div>{machine.group}</div>
       </div>
       <div className="machine-tile__info">
-        <a href={`/${machine.id}`}>
+        <a className="machine-tile__thumbnail-link" href={`/${machine.id}`}>
           <img src={machine.thumbURL} alt="" />
         </a>
         <div className="machine-tile__status-chart">
