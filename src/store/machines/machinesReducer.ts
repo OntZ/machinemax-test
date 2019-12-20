@@ -12,7 +12,7 @@ import {
   GET_MACHINE_HISTORY_REQUEST,
   GET_MACHINE_HISTORY_SUCCESS
 } from './machinesTypes';
-import { MachinesEndpointStatus } from '../../services/MachineService';
+import { MachinesEndpointStatus, Machine } from '../../services/MachineService';
 
 export const initialState: IMachinesState = {
   machines: [],
@@ -42,6 +42,26 @@ const reducer: Reducer<IMachinesState, MachinesActionTypes> = (
         machinesEndpointStatus: MachinesEndpointStatus.Active
       }
     case GET_MACHINE_BY_ID_REQUEST:
+      /**
+       * If we've successfully got a list of machines and can't find the individual machine
+       * on the state, nor in local storage, try to get it from the list of machines so
+       * the user doesn't have to wait a long while for it when first loading the details page
+       */
+      if (!state.machineById[action.payload.id]) {
+        const machineFromList: Machine | undefined = state.machines.find(machine => machine.id === action.payload.id);
+        if (machineFromList && state.machinesLoadedLast) {
+          return {
+            ...state,
+            machineById: {
+              ...state.machineById,
+              [action.payload.id]: {
+                machine: machineFromList,
+                loadedLast: state.machinesLoadedLast
+              }
+            }
+          }
+        }
+      }
       return state;
     case GET_MACHINE_BY_ID_FAIL:
       return {

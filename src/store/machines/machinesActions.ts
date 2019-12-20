@@ -66,8 +66,9 @@ export function* watchPollMachinesSaga() {
   }
 }
 
-const getMachineByIdRequest: ActionCreator<MachinesActionTypes> = () => ({
-  type: GET_MACHINE_BY_ID_REQUEST
+const getMachineByIdRequest: ActionCreator<MachinesActionTypes> = (id: string) => ({
+  type: GET_MACHINE_BY_ID_REQUEST,
+  payload: { id }
 })
 
 const getMachineByIdSuccess: ActionCreator<MachinesActionTypes> = (machine: Machine) => ({
@@ -91,7 +92,7 @@ export const stopPollingMachineById: ActionCreator<MachinesActionTypes> = () => 
 function* pollMachineByIdSaga(action: IPollMachineByIdStart) {
   while (true) {
     try {
-      yield put(getMachineByIdRequest());
+      yield put(getMachineByIdRequest(action.payload.id));
       const machine: Machine = yield call(() => MachineService.getById(action.payload.id));
       yield put(getMachineByIdSuccess(machine));
       yield call(delay, 30000);
@@ -125,7 +126,6 @@ const getMachineHistoryFail: ActionCreator<MachinesActionTypes> = () => ({
 })
 
 export const getMachineHistory = (id: string): ThunkAction<Promise<void>, {}, {}, AnyAction> => {
-  console.log('MA CAAAAAAAAAAAC')
   return async (dispatch: ThunkDispatch<{}, {}, AnyAction>) => {
     dispatch(getMachineHistoryRequest());
     try {
@@ -134,6 +134,8 @@ export const getMachineHistory = (id: string): ThunkAction<Promise<void>, {}, {}
       dispatch(getMachineHistorySuccess(machineHistory, id));
     } catch (err) {
       dispatch(getMachineHistoryFail(err));
+      await delay(1000);
+      getMachineHistory(id);
     }
 
     return;

@@ -66,6 +66,9 @@ interface IPollMachineByIdStop extends Action {
 
 interface IGetMachineByIdRequestAction extends Action {
   type: typeof GET_MACHINE_BY_ID_REQUEST;
+  payload: {
+    id: string;
+  }
 }
 
 interface IGetMachineByIdSuccessAction extends Action {
