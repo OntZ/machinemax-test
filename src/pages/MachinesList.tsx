@@ -86,9 +86,11 @@ export const MachinesList: React.FC = () => {
       <div className="content-area bottom-spacing">
         <h2 className="col-lg-12">Status for all your machines</h2>
         <div className="col-lg-12 inner-grid-12 column-gap bottom-spacing machines-list__status">
+          <div className="col-lg-8">
           {machinesLoadedLast
-          ? <div className="col-lg-8">Accurate as of {moment(machinesLoadedLast).format('DD/MMM HH:mm:ss')}</div>
+          ? <> Accurate as of {moment(machinesLoadedLast).format('DD/MMM HH:mm:ss')} </>
           : null}
+          </div>
           <div className="col-lg-3 col-sm-8">
             Server status:
           </div>
