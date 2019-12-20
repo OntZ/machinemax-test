@@ -20,9 +20,8 @@ The proxy runs off `node ./proxy/proxy.js`. It should work as long as you have n
 
 **Note:** Chrome is changing the way same-site cookies work https://www.chromium.org/updates/same-site so by the time you check it out, it might not work at all unless you update the endpoint. Got this warning in devtools:
 
-```
-A cookie associated with a cross-site resource at http://machinemax.com/ was set without the `SameSite` attribute. A future release of Chrome will only deliver cookies with cross-site requests if they are set with `SameSite=None` and `Secure`. You can review cookies in developer tools under Application>Storage>Cookies and see more details at https://www.chromestatus.com/feature/5088147346030592 and https://www.chromestatus.com/feature/5633521622188032.
-```
+> A cookie associated with a cross-site resource at http://machinemax.com/ was set without the `SameSite` attribute. A future release of Chrome will only deliver cookies with cross-site requests if they are set with `SameSite=None` and `Secure`. You can review cookies in developer tools under Application>Storage>Cookies and see more details at https://www.chromestatus.com/feature/5088147346030592 and https://www.chromestatus.com/feature/5633521622188032.
+
 
 ### `yarn test`
 
@@ -67,6 +66,8 @@ I've used Victory for showing data charts as it seemed easiest to get something 
 6. Idle is more costly than off because you're wasting fuel, engine wear and operator hours, so I've plotted it as such in the history chart.
 
 7. History doesn't change randomly. Because in this case it does, there will be a less-than-pretty initial flicker in the details page when the new history replaces the old one. There would still be a flicker from one day to the next, though. The dates the graph is showed for are rendered, and will update with the fresh call, so this might be acceptable in an MVP, subject to PO, user testing etc. I'd be happy to hear how best to go about this. Potentially a graph which uses transitions would be nice.
+
+8. You have a good designer. If not, I'm happy to learn some principles.
 
 ## Potential caveats
 
