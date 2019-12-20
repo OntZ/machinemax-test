@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import './MachineTile.scss';
 import { Machine } from '../services/MachineService';
@@ -48,16 +49,16 @@ export const MachineTile: React.FC<IMachineTileProps> = ({machine}) => {
     <div className="machine-tile">
       <div className="machine-tile__name">
         <div>
-          <a href={`/${machine.id}`}>
+          <Link to={`/${machine.id}`}>
             <b>{machine.type + ' ' + machine.name}</b>
-          </a>
+          </Link>
         </div>
         <div>{machine.group}</div>
       </div>
       <div className="machine-tile__info">
-        <a className="machine-tile__thumbnail-link" href={`/${machine.id}`}>
+        <Link className="machine-tile__thumbnail-link" to={`/${machine.id}`}>
           <img src={machine.thumbURL} alt="" />
-        </a>
+        </Link>
         <div className="machine-tile__status-chart">
           <VictoryPie
             colorScale={colorScale}

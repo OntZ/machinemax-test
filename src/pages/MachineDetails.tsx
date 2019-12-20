@@ -8,6 +8,7 @@ import { IApplicationState } from '../store/rootReducer';
 import './MachineDetails.scss';
 import { MachineHistoryChart } from '../components/MachineHistoryChart';
 import { ServerStatus } from '../components/ServerStatus';
+import { Link } from 'react-router-dom';
 
 
 interface IMachineDetailsParams {
@@ -40,7 +41,7 @@ export const MachineDetails = withRouter((props) => {
       <div className="machine-details">
         <div className="content-area machine-details__content">
           <div className="col-lg-10 col-md-8 col-sm-6 top-spacing bottom-spacing">
-            <a href="/">{'<'} Home</a>
+            <Link to="/">{'<'} Home</Link>
           </div>
           <div className="col-lg-2 col-md-4 col-sm-6 inner-grid-4 top-spacing bottom-spacing">
               <div className="col-lg-3 col-sm-2">
