@@ -50,6 +50,8 @@
 
 .app--night-mode {
   .machine-details {
+    background-color: $color-app-background-night;
+
     &__content {
       background-color: $color-black;
     }
