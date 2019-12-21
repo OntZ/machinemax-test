@@ -84,3 +84,5 @@ The app also has a Night mode for dark conditions, which can be toggled on the t
 5. Machine details Bar chart could look better and I haven't figured out how to make bar width fill up between the points without hacking away at them.
 
 6. Didn't add animations as not relevant to actual user value and to save time. Would be fun to add some though.
+
+7. Mobile version works but is rather basic looking.
