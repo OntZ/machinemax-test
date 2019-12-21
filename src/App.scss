@@ -1,2 +1,38 @@
-.App {
+@import './app-mixins-and-vars.scss';
+.app {
+  background-color: $color-app-background;
+  color: $color-black;
+
+  &--night-mode {
+    background-color: $color-app-background-night;
+    color: $color-white;
+  }
+
+  &__mode-container {
+    margin-top: 10px;
+    margin-bottom: -35px;
+  }
+
+  &__mode-selector {
+    display: inline-flex;
+    align-items: center;
+    cursor: pointer;
+
+    &__trigger {
+      content: ' ';
+      width: 24px;
+      height: 24px;
+      margin-left: 6px;
+      border: 2px solid $color-black;
+      background-color: $color-white;
+    }
+
+    #nightmode {
+      opacity: 0;
+
+      &:checked + .app__mode-selector__trigger {
+        background-color: $color-operation-on;
+      }
+    }
+  }
 }

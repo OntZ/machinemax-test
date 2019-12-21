@@ -36,3 +36,9 @@
     padding-top: 20px;
   }
 }
+
+.app--night-mode {
+  .machine-tile {
+    background-color: $color-black;
+  }
+}

@@ -1,9 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { VictoryPie, VictoryContainer } from 'victory';
 
 import './MachineTile.scss';
 import { Machine } from '../services/MachineService';
-import { VictoryPie, VictoryContainer } from 'victory';
+import { AppModeContext } from '../App';
 
 const appColors = require('../app-colors.scss');
 
@@ -18,8 +19,11 @@ export const MachineTile: React.FC<IMachineTileProps> = ({machine}) => {
   const engineTime = onTime + idleTime;
   const offTime = 24 - engineTime;
 
-  const chartData = [];
-  const colorScale = [];
+  const chartData: {
+    x: string;
+    y: number;
+  }[] = [];
+  const colorScale: string[] = [];
 
   if (onTime > 0) {
     chartData.push({
@@ -60,7 +64,8 @@ export const MachineTile: React.FC<IMachineTileProps> = ({machine}) => {
           <img src={machine.thumbURL} alt="" />
         </Link>
         <div className="machine-tile__status-chart">
-          <VictoryPie
+          <AppModeContext.Consumer>
+            {isNightMode => <VictoryPie
             colorScale={colorScale}
             height={170}
             width={220}
@@ -69,8 +74,15 @@ export const MachineTile: React.FC<IMachineTileProps> = ({machine}) => {
             data={chartData}
             labelRadius={70}
             radius={50}
+            style={{
+              labels: {
+                fill: isNightMode ? '#ddd' : '#333'
+              }
+            }}
             containerComponent={<VictoryContainer responsive={true}/>}
-          />
+          />}
+          </AppModeContext.Consumer>
+
         </div>
       </div>
       <div className="machine-tile__name">

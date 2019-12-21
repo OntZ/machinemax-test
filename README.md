@@ -51,6 +51,8 @@ Individual machines are stored in redux state and local-storage on a per-ID basi
 
 I've used Victory for showing data charts as it seemed easiest to get something out of the box with it. However considerably more time should probably be spent tweaking them to get them looking sharp.
 
+The app also has a Night mode for dark conditions, which can be toggled on the top-right of either page.
+
 ## Assumptions
 
 1. The "activeHours" and "idleHours" values found on the data model returned by `/machines` add up to less than 24, so I'm assuming the rest is "off" hours and the entire measurement happens for the previous 24h. This assumption is reinforced by the fact that `/machines/{machine_id}/history` is also returned for a 24 hour period. Thus, I've decided to show "off" time on the tiles as well.

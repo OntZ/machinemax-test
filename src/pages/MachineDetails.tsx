@@ -53,25 +53,30 @@ export const MachineDetails = withRouter((props) => {
             </div>
           <div className="col-lg-6">
             <h1 className="machine-details__title">{machine.type + ' ' + machine.name}</h1>
-            <div>{machine.group}</div>
-            <div className="machine-details__operation machine-details__operation--active">
-              Active hours: {(machine.activity.activeHours).toFixed(2)}
+            <div><b>{machine.group}</b></div>
+            <div className="inner-grid-2">
+              <div className="col-lg-1">
+                <div className="machine-details__operation machine-details__operation--active">
+                  Active hours: {(machine.activity.activeHours).toFixed(2)}
+                </div>
+                <div className="machine-details__operation machine-details__operation--idle">
+                  Idle hours: {(machine.activity.idleHours).toFixed(2)}
+                </div>
+                <div className="machine-details__operation machine-details__operation--off">
+                  Off hours: {(24 - machine.activity.activeHours - machine.activity.idleHours).toFixed(2)}
+                </div>
+              </div>
+              <div className="col-lg-1 bottom-spacing">
+                Accurate as of <br className="hidden-sm"/> {moment(loadedLast).format('DD/MMM HH:mm:ss')}
+              </div>
             </div>
-            <div className="machine-details__operation machine-details__operation--idle">
-              Idle hours: {(machine.activity.idleHours).toFixed(2)}
-            </div>
-            <div className="machine-details__operation machine-details__operation--off">
-              Off hours: {(24 - machine.activity.activeHours - machine.activity.idleHours).toFixed(2)}
-            </div>
-            <div className="bottom-spacing">
-              Accurate as of {moment(loadedLast).format('DD/MMM HH:mm:ss')}
-            </div>
+
           </div>
-          <div className="col-lg-6">
+          <div className="col-lg-6 text-right">
             <img className="machine-details__photo" src={machine.imageURL} alt=""/>
           </div>
           <div className="col-lg-12">
-            <MachineHistoryChart machineHistory={machineHistory} />>
+            <MachineHistoryChart machineHistory={machineHistory} />
           </div>
         </div>
       </div>

@@ -11,6 +11,7 @@
       margin-bottom: 7px;
     }
     input, select {
+      border: 1px solid #ccc;
       margin-top: 7px;
       height: 40px;
       width: 100%;
@@ -30,6 +31,29 @@
 
     &:hover {
       color: #555;
+    }
+  }
+}
+
+.app--night-mode {
+  .machines-list {
+    background-color: $color-app-background-night;
+
+    &__reset-filters {
+      color: #777;
+
+      &:hover {
+        color: #888;
+      }
+    }
+
+    input, select {
+      background-color: $color-black;
+      color: $color-white;
+    }
+
+    option {
+      background-color: #222;
     }
   }
 }
