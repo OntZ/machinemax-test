@@ -29,6 +29,7 @@
 
     #nightmode {
       opacity: 0;
+      margin-right: -14px;
 
       &:checked + .app__mode-selector__trigger {
         background-color: $color-operation-on;
