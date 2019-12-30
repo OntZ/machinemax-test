@@ -1,0 +1,59 @@
+@import '../app-mixins-and-vars.scss';
+
+.machines-list {
+  min-height: 100vh;
+  background-color: $color-app-background;
+  margin: 0;
+  padding-bottom: 30px;
+
+  &__filters {
+    label {
+      margin-bottom: 7px;
+    }
+    input, select {
+      border: 1px solid #ccc;
+      margin-top: 7px;
+      height: 40px;
+      width: 100%;
+      padding: 6px;
+      font-size: $min-font-size;
+    }
+
+    option {
+      background-color: #f8f8f8;
+    }
+  }
+
+  &__reset-filters {
+    display: inline-block;
+    margin-top: 10px;
+    color: #333;
+
+    &:hover {
+      color: #555;
+    }
+  }
+}
+
+.app--night-mode {
+  .machines-list {
+    background-color: $color-app-background-night;
+
+    &__reset-filters {
+      color: #777;
+
+      &:hover {
+        color: #888;
+      }
+    }
+
+    input, select {
+      background-color: $color-black;
+      color: $color-white;
+    }
+
+    option {
+      background-color: #222;
+    }
+  }
+}

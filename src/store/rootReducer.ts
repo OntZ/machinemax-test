@@ -1,13 +1,13 @@
 import { combineReducers, AnyAction, Reducer } from "redux";
-import reducer from './app/reducer';
-import { IAppState } from "./app/types";
+import machinesReducer from './machines/machinesReducer';
+import { IMachinesState } from "./machines/machinesTypes";
 
 export interface IApplicationState {
-  app: IAppState
+  machines: IMachinesState;
 }
 
-const rootReducer: Reducer<IApplicationState, AnyAction> = combineReducers({
-  app: reducer,
+const rootReducer: Reducer<IApplicationState, AnyAction> = combineReducers<IApplicationState>({
+  machines: machinesReducer,
 });
 
 export default rootReducer;

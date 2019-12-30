@@ -1,37 +1,55 @@
-import React, { useEffect } from 'react';
-import logo from './logo.svg';
+import React, { useState } from 'react';
 import './App.scss';
-import { useSelector, useDispatch } from 'react-redux';
-import { reduxWorks } from './store/app/actions';
-import { IApplicationState } from './store/rootReducer';
+import { MachinesList } from './pages/MachinesList';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { MachineDetails } from './pages/MachineDetails';
 
-const App: React.FC = () => {
-  const message = useSelector((state: IApplicationState) => state.app.message);
-  const dispatch = useDispatch();
-  console.log(message);
-  useEffect(() => {
-    dispatch(reduxWorks());
-  });
+export const AppModeContext = React.createContext(false);
+
+export const App: React.FC = () => {
+
+  const [isNightMode, setNightMode] = useState(localStorage.getItem('night-mode') === 'true');
 
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <h1>{message}</h1>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <AppModeContext.Provider value={isNightMode}>
+      <div className={`app${isNightMode ? ' app--night-mode' : ''}`}>
+          <div className="content-area app__mode-container">
+            <div className="col-lg-12 text-right">
+              <label htmlFor="nightmode" className="app__mode-selector text-left">
+                <span>Night mode:</span>
+                <input
+                  id="nightmode"
+                  type="checkbox"
+                  value="night"
+                  checked={isNightMode}
+                  onChange={e => {
+                    const newMode = e.currentTarget.checked;
+                    setNightMode(newMode);
+                    localStorage.setItem('night-mode', '' + newMode)
+                  }} />
+                <div className="app__mode-selector__trigger"></div>
+              </label>
+            </div>
+        </div>
+        <BrowserRouter>
+          <Switch>
+            <Route
+              exact
+              path="/"
+              render={() => (
+                <MachinesList />
+              )}
+            />
+            <Route
+              exact
+              path="/:machineID"
+              render={() => (
+                <MachineDetails />
+              )}
+            />
+          </Switch>
+        </BrowserRouter>
+      </div>
+    </AppModeContext.Provider>
   );
 }
-
-export default App;

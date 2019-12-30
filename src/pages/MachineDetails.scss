@@ -1,0 +1,59 @@
+@import '../app-mixins-and-vars.scss';
+
+
+.machine-details {
+  background-color: $color-app-background;
+  min-height: 100vh;
+  margin: 0;
+
+  &__content {
+    padding-top: 30px;
+    background-color: $color-white;
+    min-height: 100vh;
+  }
+
+  &__title {
+    margin-top: 0;
+  }
+
+  &__operation {
+    padding: 6px;
+    border-radius: 6px;
+    width: 200px;
+    text-align: center;
+    margin: 10px;
+    color: $color-white;
+
+    @include breakpoint(small) {
+      margin: 10px auto;
+    }
+
+    &--active {
+      background-color: $color-operation-on;
+    }
+
+    &--idle {
+      background-color: $color-operation-idle;
+      color: #333;
+    }
+
+    &--off {
+      background-color: $color-operation-off;
+    }
+  }
+
+  &__photo {
+    max-width: 100%;
+    max-height: 300px;
+  }
+}
+
+.app--night-mode {
+  .machine-details {
+    background-color: $color-app-background-night;
+
+    &__content {
+      background-color: $color-black;
+    }
+  }
+}
